@@ -2138,3 +2138,45 @@ function solveSimultaneous() {
     updateResult();
   }
 }
+
+
+function redoCalculation() {
+  
+  var calcHistory =localStorage.getItem("calcHistory")
+  var History = JSON.parse(calcHistory)
+  
+  var lastIn = History[History.length - 1];
+  console.log(lastIn)
+    if (lastIn) {
+        // Restore the entire calculation with result
+      const tokenizer = /(-?\d*\.?\d+|[()+\-*/%^])/g;
+
+      const match = lastIn.expression.match(tokenizer);
+      console.log(match)
+      if (match) {
+      var left = match[0];
+      var operator = match[1];
+      var right = match[2];
+        
+        
+        // Show the full expression first
+        document.getElementById('result').value = match.join("") + '=' + lastIn.answer ;
+        
+        // Then restore to just the result
+        
+        
+        // Disable redo button after use
+        // disableRedo();
+    
+      }
+    }
+  }
+function enableRedo() {
+    const redoBtn = document.getElementById('redoBtn');
+    redoBtn.disabled = false;
+}
+
+function disableRedo() {
+    const redoBtn = document.getElementById('redoBtn');
+    redoBtn.disabled = true;
+} 
