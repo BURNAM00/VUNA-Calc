@@ -2117,3 +2117,33 @@ function clearPercentageChange() {
     right = '';
     updateResult();
 }
+
+// Function to calculate the 2x2 determinant
+function calculateMatrix() {
+  // 1. Fetch values (default to 0 if empty)
+  const a = parseFloat(document.getElementById('m11').value) || 0;
+  const b = parseFloat(document.getElementById('m12').value) || 0;
+  const c = parseFloat(document.getElementById('m21').value) || 0;
+  const d = parseFloat(document.getElementById('m22').value) || 0;
+
+  // 2. Determinant Formula: (a * d) - (b * c)
+  const detResult = (a * d) - (b * c);
+  
+  // 3. Update the UI Result
+  document.getElementById('matrix-result').innerText = detResult;
+
+  // 4. Sync with main calculator display
+  currentExpression = detResult.toString();
+  updateResult();
+
+  // 5. Automatically trigger word translation and speech if needed
+  if (typeof numberToWords === "function") {
+      const words = numberToWords(detResult);
+      const wordArea = document.getElementById("word-area");
+      const wordText = document.getElementById("word-result-text") || document.getElementById("word-result");
+      
+      if (wordText) wordText.innerHTML = words;
+      if (wordArea) wordArea.style.display = "flex";
+      enableSpeakButton();
+  }
+}
