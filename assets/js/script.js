@@ -2059,84 +2059,67 @@ function cubeRootResult() {
   updateResult();
 }
 
-function solveSimultaneous() {
-  const eq1 = document.getElementById("eq1").value;
-  const eq2 = document.getElementById("eq2").value;
+// ============================================
+// PERCENTAGE CHANGE CALCULATOR FUNCTIONS
+// ============================================
 
-  if (!eq1 || !eq2) {
-    alert("Please enter both equations!");
-    return;
-  }
-
-  try {
-    const parseEq = (eq) => {
-      // Remove spaces
-      eq = eq.replace(/\s+/g, '');
-
-      // Match coefficients: ax, by, =c
-      let a = 0, b = 0, c = 0;
-
-      // Split into left and right of =
-      const sides = eq.split('=');
-      if (sides.length !== 2) throw new Error("Equation must contain '='");
-
-      const left = sides[0];
-      c = parseFloat(sides[1]);
-
-      // Find x coefficient
-      const xMatch = left.match(/([+-]?[\d.]*)x/);
-      if (xMatch) {
-        let val = xMatch[1];
-        a = val === "" || val === "+" ? 1 : val === "-" ? -1 : parseFloat(val);
-      }
-
-      // Find y coefficient
-      const yMatch = left.match(/([+-]?[\d.]*)y/);
-      if (yMatch) {
-        let val = yMatch[1];
-        b = val === "" || val === "+" ? 1 : val === "-" ? -1 : parseFloat(val);
-      }
-
-      return { a, b, c };
-    };
-
-    const { a: a1, b: b1, c: c1 } = parseEq(eq1);
-    const { a: a2, b: b2, c: c2 } = parseEq(eq2);
-
-    // Solve using Cramer's rule
-    const det = a1 * b2 - a2 * b1;
-    if (det === 0) throw new Error("No unique solution exists");
-
-    const x = (c1 * b2 - c2 * b1) / det;
-    const y = (a1 * c2 - a2 * c1) / det;
-
-    const resultStr = `x = ${x}, y = ${y}`;
-
-    // Update main calculator display
-    currentExpression = `x=${x},y=${y}`;
+function calculatePercentageChange() {
+    // Get input values
+    const original = parseFloat(document.getElementById('pc-original').value);
+    const newValue = parseFloat(document.getElementById('pc-new').value);
+    
+    // Validation
+    if (isNaN(original) || isNaN(newValue)) {
+        alert('Please enter valid numbers');
+        return;
+    }
+    
+    if (original === 0) {
+        alert('Original value cannot be zero');
+        return;
+    }
+    
+    // Calculate percentage change
+    const absoluteChange = newValue - original;
+    const percentageChange = (absoluteChange / Math.abs(original)) * 100;
+    
+    // Determine description
+    let description = '';
+    if (percentageChange > 0) {
+        description = `an increase of ${Math.abs(percentageChange).toFixed(2)}%`;
+    } else if (percentageChange < 0) {
+        description = `a decrease of ${Math.abs(percentageChange).toFixed(2)}%`;
+    } else {
+        description = 'no change';
+    }
+    
+    // Display results
+    const resultDiv = document.getElementById('pc-result');
+    document.getElementById('pc-change-value').textContent = percentageChange.toFixed(2);
+    document.getElementById('pc-absolute-change').textContent = absoluteChange.toFixed(2);
+    document.getElementById('pc-description').textContent = `From ${original} to ${newValue} is ${description}`;
+    resultDiv.style.display = 'block';
+    
+    // Update main calculator display with the result
+    left = percentageChange.toFixed(2).toString();
+    operator = '';
+    right = '';
     updateResult();
+}
 
-    // Show in word area
-    const wordResult = document.getElementById("word-result");
-    const wordArea = document.getElementById("word-area");
-    wordResult.innerHTML = `<span class="small-label">Simultaneous Equation Result</span><strong>${resultStr}</strong>`;
-    wordArea.style.display = "flex";
-
-    // Add to history
-    calculationHistory?.push({
-      expression: eq1 + " & " + eq2,
-      words: resultStr,
-      time: new Date().toLocaleTimeString(),
-    });
-    if (calculationHistory.length > 20) calculationHistory.shift();
-    localStorage.setItem("calcHistory", JSON.stringify(calculationHistory));
-    renderHistory();
-
-  } catch (err) {
-    alert("Error: " + err.message);
-    currentExpression = "Error";
+function clearPercentageChange() {
+    // Clear input fields
+    document.getElementById('pc-original').value = '100';
+    document.getElementById('pc-new').value = '150';
+    
+    // Hide result
+    document.getElementById('pc-result').style.display = 'none';
+    
+    // Clear calculator display
+    left = '';
+    operator = '';
+    right = '';
     updateResult();
-  }
 }
 
 

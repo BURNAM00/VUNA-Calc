@@ -928,7 +928,62 @@ border-radius:15px;">
                           </div>
                         </div>
                         <!-- END Physics Calculator Section -->
-                        
+
+                        <!-- Percentage Change Calculator - NEW -->
+                        <div class="accordion-item">
+                          <h2 class="accordion-header" id="headingPercentageChange">
+                            <button class="accordion-button collapsed d-flex justify-content-between align-items-center"
+                              type="button" data-bs-toggle="collapse" data-bs-target="#collapsePercentageChange"
+                              aria-expanded="false" aria-controls="collapsePercentageChange">
+                              <span>📊 Percentage Change</span>
+                            </button>
+                          </h2>
+                          <div id="collapsePercentageChange" class="accordion-collapse collapse"
+                            aria-labelledby="headingPercentageChange" data-bs-parent="#converterAccordion">
+                            <div class="accordion-body">
+                              <p class="text-muted small mb-3">Calculate percentage increase or decrease between two values</p>
+                              
+                              <!-- Original Value -->
+                              <div class="mb-3">
+                                <label class="form-label small" style="font-weight: 600;">Original Value</label>
+                                <input type="number" class="form-control" id="pc-original" placeholder="Enter original value" value="100">
+                              </div>
+
+                              <!-- New Value -->
+                              <div class="mb-3">
+                                <label class="form-label small" style="font-weight: 600;">New Value</label>
+                                <input type="number" class="form-control" id="pc-new" placeholder="Enter new value" value="150">
+                              </div>
+
+                              <!-- Calculate Button -->
+                              <div class="d-grid gap-2 mb-3">
+                                <button class="btn btn-primary btn-sm" onclick="calculatePercentageChange()">
+                                  Calculate Change
+                                </button>
+                                <button class="btn btn-outline-secondary btn-sm" onclick="clearPercentageChange()">
+                                  Clear
+                                </button>
+                              </div>
+
+                              <!-- Result Display -->
+                              <div id="pc-result" class="alert alert-info py-2 px-3 mb-0" style="display: none;">
+                                <div class="mb-2"><strong>Percentage Change:</strong> <span id="pc-change-value">0</span>%</div>
+                                <div class="mb-2"><strong>Absolute Change:</strong> <span id="pc-absolute-change">0</span></div>
+                                <div><strong>Description:</strong> <span id="pc-description" style="font-style: italic; color: #555;"></span></div>
+                              </div>
+
+                              <!-- Examples -->
+                              <div class="alert alert-light py-2 px-3 mt-3 mb-0 border" style="font-size: 0.85rem;">
+                                <strong>Examples:</strong><br>
+                                • Original: 100, New: 150 → <strong>50% increase</strong><br>
+                                • Original: 200, New: 150 → <strong>25% decrease</strong><br>
+                                • Original: 50, New: 50 → <strong>0% (no change)</strong>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- END Percentage Change Calculator Section -->
+
                       </div>
                       <!-- Simultaneous Equation Solver -->
     <div class="mb-3">
