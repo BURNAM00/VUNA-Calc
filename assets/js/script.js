@@ -316,15 +316,61 @@ function toggleMatrix() {
     }
 }
 
-// Function to calculate the 2x2 determinant
-function calculateDeterminant() {
-    const a = parseFloat(document.getElementById('m11').value) || 0;
-    const b = parseFloat(document.getElementById('m12').value) || 0;
-    const c = parseFloat(document.getElementById('m21').value) || 0;
-    const d = parseFloat(document.getElementById('m22').value) || 0;
+// Function to show/hide the matrix section
+function toggleMatrix() {
+  const content = document.getElementById("matrix-content");
+  const arrow = document.getElementById("matrix-arrow");
+  
+  if (content.style.display === "none") {
+      content.style.display = "block";
+      arrow.style.transform = "rotate(180deg)";
+  } else {
+      content.style.display = "none";
+      arrow.style.transform = "rotate(0deg)";
+  }
+}
 
-    // Formula: (a * d) - (b * c)
-    const det = (a * d) - (b * c);
-    
-    document.getElementById('matrix-result').innerText = det;
+// Fixed Matrix Calculation Function
+// Function to show/hide the matrix section with arrow rotation
+function toggleMatrix() {
+  const content = document.getElementById("matrix-content");
+  const arrow = document.getElementById("matrix-arrow");
+  
+  if (content.style.display === "none") {
+      content.style.display = "block";
+      arrow.style.transform = "rotate(180deg)";
+  } else {
+      content.style.display = "none";
+      arrow.style.transform = "rotate(0deg)";
+  }
+}
+
+// Function to calculate the 2x2 determinant
+function calculateMatrix() {
+  // 1. Fetch values (default to 0 if empty)
+  const a = parseFloat(document.getElementById('m11').value) || 0;
+  const b = parseFloat(document.getElementById('m12').value) || 0;
+  const c = parseFloat(document.getElementById('m21').value) || 0;
+  const d = parseFloat(document.getElementById('m22').value) || 0;
+
+  // 2. Determinant Formula: (a * d) - (b * c)
+  const detResult = (a * d) - (b * c);
+  
+  // 3. Update the UI Result
+  document.getElementById('matrix-result').innerText = detResult;
+
+  // 4. Sync with main calculator display
+  currentExpression = detResult.toString();
+  updateResult();
+
+  // 5. Automatically trigger word translation and speech if needed
+  if (typeof numberToWords === "function") {
+      const words = numberToWords(detResult);
+      const wordArea = document.getElementById("word-area");
+      const wordText = document.getElementById("word-result-text") || document.getElementById("word-result");
+      
+      if (wordText) wordText.innerHTML = words;
+      if (wordArea) wordArea.style.display = "flex";
+      enableSpeakButton();
+  }
 }

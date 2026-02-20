@@ -524,6 +524,23 @@
 #matrix-arrow {
     transition: transform 0.3s ease;
 }
+
+.matrix-grid {
+    display: inline-block;
+    border-left: 2px solid #333;
+    border-right: 2px solid #333;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.matrix-grid input {
+    width: 50px;
+    height: 40px;
+    text-align: center;
+    margin: 2px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+}
   </style>
 </head>
 
@@ -936,31 +953,46 @@ border-radius:15px;">
                         <!-- END Physics Calculator Section -->
 
                       </div>
-                      <div class="collapsible-wrapper">
-    <button type="button" class="collapsible-btn" onclick="toggleMatrix()">
-        <span class="icon">⊞</span> Matrix Calculator (2x2)
-        <span id="matrix-arrow">⌵</span>
-    </button>
-    
-    <div id="matrix-content" style="display: none; padding: 15px; background: #fdfdfd; border-top: 1px solid #eee;">
-        <p style="font-size: 0.8em; color: #666; text-align: center;">Enter values for Determinant (ad - bc)</p>
-        
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; max-width: 150px; margin: 0 auto 15px auto;">
-            <input type="number" id="m11" placeholder="a" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; text-align: center;">
-            <input type="number" id="m12" placeholder="b" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; text-align: center;">
-            <input type="number" id="m21" placeholder="c" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; text-align: center;">
-            <input type="number" id="m22" placeholder="d" style="width: 100%; padding: 8px; border: 1px solid #ddd; border-radius: 4px; text-align: center;">
+                      <!-- Matrix section tab -->
+                        <div class="card mb-4 border-0 shadow-sm rounded-4">
+  <div class="card-header bg-white border-0 py-3" onclick="toggleMatrix()" style="cursor: pointer;">
+    <h5 class="mb-0 d-flex justify-content-between align-items-center">
+      <span class="fw-bold text-primary">2x2 Matrix Solver</span>
+      <span id="matrix-arrow" style="transition: transform 0.3s;">▼</span>
+    </h5>
+  </div>
+  
+  <div id="matrix-content" style="display: none;">
+    <div class="card-body pt-0">
+      <p class="text-muted small mb-3">Enter values for the determinant |A| = ad - bc</p>
+      
+      <div class="row g-2 mb-3">
+        <div class="col-6">
+          <input type="number" id="m11" class="form-control form-control-lg text-center border-2" placeholder="a">
         </div>
+        <div class="col-6">
+          <input type="number" id="m12" class="form-control form-control-lg text-center border-2" placeholder="b">
+        </div>
+        <div class="col-6">
+          <input type="number" id="m21" class="form-control form-control-lg text-center border-2" placeholder="c">
+        </div>
+        <div class="col-6">
+          <input type="number" id="m22" class="form-control form-control-lg text-center border-2" placeholder="d">
+        </div>
+      </div>
 
-        <button class="btn" onclick="calculateDeterminant()" style="width: 100%; background: #4a90e2; color: white; border: none; padding: 10px; border-radius: 5px; cursor: pointer;">
-            Calculate Determinant
-        </button>
-        
-        <div style="margin-top: 10px; text-align: center; font-weight: bold;">
-            Result: <span id="matrix-result">0</span>
-        </div>
+      <button class="btn btn-primary w-100 py-2 fw-bold rounded-3 mb-3" onclick="calculateMatrix()">
+        Calculate Determinant
+      </button>
+
+      <div class="bg-light p-3 rounded-3 text-center">
+        <span class="small-label d-block mb-1">Resulting Determinant</span>
+        <h4 class="mb-0 fw-bold text-dark" id="matrix-result">0</h4>
+      </div>
     </div>
+  </div>
 </div>
+<!-- End of section tab -->
 
                       <div class="word-display-area" id="word-area">
                         <div id="word-result"></div>
