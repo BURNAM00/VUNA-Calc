@@ -129,7 +129,7 @@ function calculateResult() {
 
 
 
-// Calculate square root (√)
+// Calculate Square Root (√)
 function calculateSquareRoot() {
     let currentValue;
     
