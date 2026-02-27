@@ -305,6 +305,41 @@ function clearResult() {
 }
 
 // ------------------------------
+// Square Root Function
+// ------------------------------
+function calculateSquareRoot() {
+  if (!currentExpression) return;
+
+  const num = parseFloat(currentExpression);
+
+  if (isNaN(num)) {
+    currentExpression = "Error";
+    updateResult();
+    return;
+  }
+
+  if (num < 0) {
+    currentExpression = "Error: Negative";
+    updateResult();
+    return;
+  }
+
+  const result = Math.sqrt(num);
+
+  calculationHistory?.push({
+    expression: `√${num} = ${result}`,
+    words: numberToWords(result),
+    time: new Date().toLocaleTimeString(),
+  });
+  if (calculationHistory.length > 20) calculationHistory.shift();
+  localStorage.setItem("calcHistory", JSON.stringify(calculationHistory));
+  renderHistory();
+
+  currentExpression = result.toString();
+  updateResult();
+}
+
+// ------------------------------
 // Factorial Helper Function
 // ------------------------------
 function factorial(n) {
